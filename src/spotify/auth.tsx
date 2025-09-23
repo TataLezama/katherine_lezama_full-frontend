@@ -13,7 +13,7 @@ export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clie
 export const getTokenFromUrl = (): string | null => {
   const hash = window.location.hash.substring(1); // obtiene lo que está después de "#"
   const params = new URLSearchParams(hash);
-  return params.get("access_token");
+  return params.get("code");
 };
 
 export const setTokenFromUrl = (): void => {

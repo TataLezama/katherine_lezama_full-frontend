@@ -3,13 +3,14 @@ const clientId = "3101fd6a7ac84f3795ba053c6cbe44b5"; // Reemplázalo con tu Clie
 const redirectUri = "https://katherine-lezama-full-frontend.vercel.app/callback"; // Debe coincidir con el registrado en Spotify
 const scopes = [
   "user-read-email",
-  "user-library-read",
+  "user-read-private",
+  "user-top-read",
   "playlist-read-private",
 ];
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(
   redirectUri
-)}&scope=${scopes.join("%20")}`;
+)}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true`;
 
 export const getTokenFromUrl = (): string | null => {
   const hash = window.location.hash.substring(1); // obtiene lo que está después de "#"

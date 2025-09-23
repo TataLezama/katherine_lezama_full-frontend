@@ -1,0 +1,34 @@
+import { AlbumCard } from "../../components/cards/AlbumCard";
+import { type AlbumData, albums } from "../../data/Albums.data";
+
+
+export const Artist = () => {
+  return (
+    <div className="artist">
+      <div className="artist__header">
+        <div className="artist__image">
+          <img src="/default-artist.jpg" alt="Default artist" />
+        </div>
+        <div className="artist__content">
+          <p className="artist__certified">
+            <img src="/icon-certified-artist.svg" alt="icon-certficate-artist" />
+            Artista certificado
+          </p>
+          <h1 className="artist__name">Nombre del artista</h1>
+          <p className="artist__followers">Followers: `numero`</p>
+          <p>Oyentes mensuales: `numero`</p>
+        </div>
+      </div>
+      <div className="artist__albums">
+        <p>Guarda tus álbumes favoritos de `ArtisName`</p>
+        <div className="albums-grid">
+          {
+            albums.map(({ name, imageUrl, id, publishedDate }: AlbumData) => {
+              return <AlbumCard key={ id } name={ name } imageUrl={ imageUrl } id={ id } publishedDate={ publishedDate } />
+            })
+          }
+        </div>
+      </div>
+    </div>
+  )
+}

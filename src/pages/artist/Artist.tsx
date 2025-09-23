@@ -1,5 +1,4 @@
 import { AlbumCard } from "../../components/cards/AlbumCard";
-import { type AlbumData, albums } from "../../data/Albums.data";
 
 
 export const Artist = () => {
@@ -23,9 +22,7 @@ export const Artist = () => {
         <p>Guarda tus álbumes favoritos de `ArtisName`</p>
         <div className="albums-grid">
           {
-            albums.map(({ name, imageUrl, id, publishedDate }: AlbumData) => {
-              return <AlbumCard key={ id } name={ name } imageUrl={ imageUrl } id={ id } publishedDate={ publishedDate } />
-            })
+            
           }
         </div>
       </div>

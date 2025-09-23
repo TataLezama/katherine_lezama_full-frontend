@@ -33,19 +33,19 @@ export const Home = () => {
         <div className="grid__content">
           <h1 className="title">Disfruta de la <strong>mejor música</strong></h1>
           <p>Accede a tu cuenta para guardar tus albumes favoritos.</p>
-          <button className="button">Log in con Spotify <img src="/arrow-right.svg" alt="arrow-right" /></button>
+          <button className="button"></button>
 
           <div className="p-4">
             {!token ? (
               <a
                 href={loginUrl}
-                className="bg-green-500 text-white px-4 py-2 rounded"
+                className="button"
               >
-                Iniciar sesión con Spotify
+                Log in con Spotify <img src="/arrow-right.svg" alt="arrow-right" />
               </a>
             ) : user ? (
               <div>
-                <h1 className="text-xl font-bold">Hola, {user.display_name}</h1>
+                <h1>Hola, {user.display_name}</h1>
                 <p>Email: {user.email}</p>
               </div>
             ) : (

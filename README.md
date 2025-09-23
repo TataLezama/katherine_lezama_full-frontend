@@ -1,46 +1,143 @@
-# Getting Started with Create React App
+# 🎵 Spotify React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web creada con **React + TypeScript** que permite
+autenticarse con la API de Spotify, buscar artistas, ver el detalle de
+un artista con sus álbumes y consultar los álbumes guardados del
+usuario.
 
-## Available Scripts
+------------------------------------------------------------------------
 
-In the project directory, you can run:
+## 📌 Características
 
-### `npm start`
+-   🔑 Autenticación con **Spotify API (Implicit Grant Flow)**.\
+-   🏠 Página **Home** con navegación.\
+-   🔍 **Búsqueda de artistas** en Spotify.\
+-   🎤 **Detalle de artista** con su lista de álbumes.\
+-   💽 Vista de **mis álbumes guardados** en la cuenta de Spotify.\
+-   🌐 Navegación con **React Router v6**.\
+-   📱 Diseño con Navbar común en todas las páginas.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+------------------------------------------------------------------------
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 📂 Estructura del proyecto
 
-### `npm test`
+    src/
+     ├── components/
+     │   └── navbar/
+     │       └── Navbar.tsx          # Barra de navegación
+     ├── pages/
+     │   ├── home/
+     │   │   └── Home.tsx            # Página principal
+     │   ├── search/
+     │   │   └── Search.tsx    # Búsqueda de artistas
+     │   ├── artist/
+     │   │   └── Artist.tsx    # Detalle de artista y álbumes
+     │   └── myalbums/
+     │       └── MyAlbums.tsx        # Álbumes guardados del usuario
+     ├── spotify/
+     │   ├── auth.ts                 # Manejo de autenticación con Spotify
+     │   └── spotifyApi.ts           # Servicio de llamadas a la API
+     └── App.tsx                     # Configuración de rutas y layout
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+------------------------------------------------------------------------
 
-### `npm run build`
+## 🚀 Instalación
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  Clonar el repositorio:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+``` bash
+git clone https://github.com/tuusuario/spotify-react-app.git
+cd spotify-react-app
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  Instalar dependencias:
 
-### `npm run eject`
+``` bash
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3.  Configurar variables:
+    -   Ve a [Spotify Developer
+        Dashboard](https://developer.spotify.com/dashboard/).\
+    -   Crea una aplicación y copia tu **Client ID**.\
+    -   Agrega la **Redirect URI** (ejemplo:
+        `http://localhost:5173/callback`).\
+    -   Edita `src/spotify/auth.ts` y coloca tu **Client ID** y Redirect
+        URI.
+4.  Ejecutar en modo desarrollo:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+``` bash
+npm run dev
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+------------------------------------------------------------------------
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 🛠️ Librerías utilizadas
 
-## Learn More
+-   [React](https://reactjs.org/)\
+-   [TypeScript](https://www.typescriptlang.org/)\
+-   [React Router v6](https://reactrouter.com/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+------------------------------------------------------------------------
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🌐 Rutas disponibles
+
+  ------------------------------------------------------------------------
+  Ruta            Página               Descripción
+  --------------- -------------------- -----------------------------------
+  `/`             **Home**             Página principal con navegación.
+
+  `/search`       **Buscar Artista**   Permite buscar artistas en Spotify.
+
+  `/artist/:id`   **Detalle de         Muestra info y álbumes de un
+                  Artista**            artista.
+
+  `/my-albums`    **Mis Álbumes**      Lista los álbumes guardados del
+                                       usuario.
+  ------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## 🔐 Autenticación con Spotify
+
+La app utiliza **Implicit Grant Flow**:\
+- Al iniciar sesión, el usuario es redirigido a Spotify para dar
+permisos.\
+- Spotify devuelve un `access_token` en la URL.\
+- Ese token se guarda en `localStorage` para realizar peticiones a la
+API.
+
+Ejemplo de uso en el código:
+
+``` ts
+fetch("https://api.spotify.com/v1/me", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
+```
+
+------------------------------------------------------------------------
+
+## 📦 Build y despliegue
+
+Para crear el build de producción:
+
+``` bash
+npm run build
+```
+
+Si deseas publicarlo en **GitHub Pages**:
+
+``` bash
+npm run deploy
+```
+
+(Asegúrate de configurar el `homepage` en tu `package.json`).
+
+------------------------------------------------------------------------
+
+## 📸 Preview
+
+*(Aquí puedes poner capturas de pantalla de tu app una vez corra con
+datos de Spotify.)*

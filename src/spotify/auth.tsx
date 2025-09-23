@@ -1,10 +1,9 @@
 
 const clientId = "3101fd6a7ac84f3795ba053c6cbe44b5"; // Reemplázalo con tu Client ID
-const redirectUri = "https://katherine-lezama-full-frontend.vercel.app/"; // Debe coincidir con el registrado en Spotify
+const redirectUri = "https://katherine-lezama-full-frontend.vercel.app"; // Debe coincidir con el registrado en Spotify
 const scopes = [
+  "user-read-private",
   "user-read-email",
-  "user-library-read",
-  "playlist-read-private",
 ];
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(

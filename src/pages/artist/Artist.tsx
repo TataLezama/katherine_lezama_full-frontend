@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { AlbumCard } from "../../components/cards/AlbumCard";
 import { useEffect, useState } from "react";
-import { getArtistAlbums, getArtistById } from "../../spotify/api";
+import { getArtistAlbums, getArtistById, getMyAlbums } from "../../spotify/api";
+import { MyAlbums } from '../my-albums/MyAlbums';
 
 interface Album {
   id: string;
@@ -26,6 +27,10 @@ export const Artist = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0);
+  const limit = 10;
+
   useEffect(() => {
     const fetchData = async () => {
       if (!id || !token) return;
@@ -41,7 +46,19 @@ export const Artist = () => {
       }
     };
 
+    const fetchMyAlbums = async () => {
+      if (!token) return;
+
+      try {
+        const data = await getMyAlbums(token, offset, limit);
+        console.log("My albums:", data.items);
+      } catch (err) {
+        console.error("Error obteniendo mis álbumes:", err);
+      }
+    };
+
     fetchData();
+    fetchMyAlbums();
   }, [id, token]);
 
   if (error) return <p>Error: {error}</p>;
@@ -69,7 +86,7 @@ export const Artist = () => {
           {
             albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
-                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } />
+                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ false } />
               })
             ) : (
               <p>No hay álbumes</p>

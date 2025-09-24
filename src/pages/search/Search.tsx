@@ -81,6 +81,7 @@ export const Search = () => {
               <input type="search"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSearch(query)}
                       placeholder="Buscar..." />
               <button className="button-color" onClick={() => handleSearch(query, 0)}>Search</button>
           </div>

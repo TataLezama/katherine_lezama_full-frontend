@@ -1,9 +1,9 @@
-
 interface AlbumCardProps {
   id: string
   name: string,
   imageUrl: string,
-  publishedDate: string
+  publishedDate: string,
+  inMyAlbums: boolean,
 }
 
 export const AlbumCard = ( { name, imageUrl, id, publishedDate }: AlbumCardProps ) => {

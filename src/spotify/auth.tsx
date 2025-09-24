@@ -13,6 +13,7 @@ const redirectUri = "https://katherine-lezama-full-frontend.vercel.app"; // Debe
 const scopes = [
   "user-read-private",
   "user-read-email",
+  "user-library-read",
 ];
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(

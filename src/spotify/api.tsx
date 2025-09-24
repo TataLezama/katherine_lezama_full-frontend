@@ -31,3 +31,7 @@ export const getArtistById = async (id: string, token: string) => {
 export const getArtistAlbums = async (id: string, token: string) => {
   return await fetchSpotify(`artists/${id}/albums?include_groups=album&limit=10`, token);
 };
+
+export const getMyAlbums = async (token: string, offset = 0, limit = 10) => {
+  return await fetchSpotify(`me/albums?limit=${limit}&offset=${offset}`, token);
+};

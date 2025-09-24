@@ -31,7 +31,6 @@ export const Artist = () => {
   const [artist, setArtist] = useState<Artist>();
   const [albums, setAlbums] = useState<Album[]>([]);
   const [myArtistAlbums, setMyArtistAlbums] = useState<MyAlbums[]>([]);
-  const [myAlbum, setMyAlbum] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const limit = 20;
@@ -86,25 +85,21 @@ export const Artist = () => {
         </p>
         <div className="albums-grid">
           {albums.length > 0 ? (
-            albums.map((album: Album) => {
-              let myAlbumTemp = true;
-              if (myArtistAlbums.length > 0) {
-                myArtistAlbums.forEach((item: MyAlbums) => {
-                  console.log(item.album.id, album.id);
-                  if (item.album.id === album.id) {
-                    setMyAlbum(myAlbumTemp);
-                  }
-                });
-              }
+            albums.map(({ name, images, id, release_date }: Album) => {
+              const inMyAlbums = myArtistAlbums.some(
+                (item) => item.album.id === id
+              );
+
+              console.log("inMyAlbums:", inMyAlbums);
 
               return (
                 <AlbumCard
-                  key={album.id}
-                  id={album.id}
-                  name={album.name}
-                  imageUrl={album.images[0]?.url}
-                  publishedDate={album.release_date}
-                  inMyAlbums={myAlbum}
+                  key={id}
+                  id={id}
+                  name={name}
+                  imageUrl={images[0]?.url}
+                  publishedDate={release_date}
+                  inMyAlbums={inMyAlbums}
                 />
               );
             })

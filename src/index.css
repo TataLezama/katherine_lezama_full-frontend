@@ -39,6 +39,8 @@ button {
   border-radius: 8px;
   display: flex;
   align-items: center;
+  color: var(--primary-text-color);
+  text-decoration: none;
   transition: all 0.4s ease-in-out;
   padding: 1rem 2rem;
 }
@@ -55,6 +57,10 @@ button {
   padding: 0.85rem 2rem;
   border-radius: 20px;
   border: none;
+}
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .title {

@@ -34,18 +34,12 @@ export const getTokenFromUrl = (): string | null => {
       fetchGetToken(params.get("code")!)
       .then(
         (data: SpotifyToken) => {
-          if ( !data.refresh_token ) {
-            console.log("Token obtenido:", data.access_token);
-            token = data.access_token;
-          } else {
-            fetchRefreshToken(data.refresh_token)
-            .then(
-              (refreshData: SpotifyToken) => {
-                console.log("Refresh Token obtenido:", refreshData.access_token);
-                token = refreshData.access_token;
-              }
-            )
-            .catch(console.error);
+          console.log("Token obtenido:", data.access_token);
+          token = data.access_token;
+
+          if ( data.refresh_token ) {
+            console.log("Refresh token:", data.refresh_token);
+            localStorage.setItem("spotifyRefreshToken", data.refresh_token);
           }
         }
       )

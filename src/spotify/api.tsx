@@ -23,3 +23,11 @@ export const getInitialArtists = async (
     token
   );
 };
+
+export const getArtistById = async (id: string, token: string) => {
+  return await fetchSpotify(`artists/${id}`, token);
+};
+
+export const getArtistAlbums = async (id: string, token: string) => {
+  return await fetchSpotify(`artists/${id}/albums?include_groups=album&limit=10`, token);
+};

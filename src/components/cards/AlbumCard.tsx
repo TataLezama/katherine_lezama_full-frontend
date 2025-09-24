@@ -11,7 +11,7 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate }: AlbumCardProps
     <div className="album-card">
       <a href={`/album/${ id }`}>
         <div className="album-card__image">
-          <img src="/default-album.png" alt="Default album" />
+          <img src={ imageUrl } alt="album-image" />
         </div>
         <div className="album-card__content">
           <h1 className="album-card__name">{ name }</h1>

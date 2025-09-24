@@ -33,8 +33,6 @@ export const Home = () => {
         <div className="grid__content">
           <h1 className="title">Disfruta de la <strong>mejor música</strong></h1>
           <p>Accede a tu cuenta para guardar tus albumes favoritos.</p>
-          <button className="button"></button>
-
           <div className="p-4">
             {!token ? (
               <a

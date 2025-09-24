@@ -1,28 +1,79 @@
+import { useParams } from "react-router-dom";
 import { AlbumCard } from "../../components/cards/AlbumCard";
+import { useEffect, useState } from "react";
+import { getArtistAlbums, getArtistById } from "../../spotify/api";
 
+interface Album {
+  id: string;
+  name: string;
+  images: { url: string }[];
+  release_date: string;
+}
+
+interface Artist {
+  id: string;
+  name: string;
+  images: { url: string }[];
+  followers: { total: number };
+}
 
 export const Artist = () => {
+  
+  const { id } = useParams<{ id: string }>();
+  const token = localStorage.getItem("spotifyToken") || "";
+
+  const [artist, setArtist] = useState<Artist>();
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!id || !token) return;
+
+      try {
+        const artistData = await getArtistById(id, token);
+        setArtist(artistData);
+
+        const albumData = await getArtistAlbums(id, token);
+        setAlbums(albumData.items);
+      } catch (err: any) {
+        setError(err.message);
+      }
+    };
+
+    fetchData();
+  }, [id, token]);
+
+  if (error) return <p>Error: {error}</p>;
+  if (!artist) return <p>Cargando artista...</p>;
+
   return (
     <div className="artist">
       <div className="artist__header">
         <div className="artist__image">
-          <img src="/default-artist.jpg" alt="Default artist" />
+          <img src={ artist.images[0].url } alt="artist-image" />
         </div>
         <div className="artist__content">
           <p className="artist__certified">
             <img src="/icon-certified-artist.svg" alt="icon-certficate-artist" />
             Artista certificado
           </p>
-          <h1 className="artist__name">Nombre del artista</h1>
-          <p className="artist__followers">Followers: `numero`</p>
-          <p>Oyentes mensuales: `numero`</p>
+          <h1 className="artist__name">{ artist.name }</h1>
+          <p className="artist__followers">Followers: { artist.followers.total }</p>
+          <p>Oyentes mensuales: { artist.followers.total }</p>
         </div>
       </div>
       <div className="artist__albums">
-        <p>Guarda tus álbumes favoritos de `ArtisName`</p>
+        <p>Guarda tus álbumes favoritos de <strong>{ artist.name }</strong></p>
         <div className="albums-grid">
           {
-            
+            albums.length > 0 ? (
+              albums.map(({ name, images, id, release_date }: any) => {
+                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } />
+              })
+            ) : (
+              <p>No hay álbumes</p>
+            )
           }
         </div>
       </div>

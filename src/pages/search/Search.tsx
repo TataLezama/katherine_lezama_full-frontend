@@ -20,8 +20,12 @@ export const Search = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const [query, setQuery] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0);
+
   const token = localStorage.getItem("spotifyToken") || "";
-  const limit = 10;
+  const limit = 4;
 
   const loadArtists = async (query?: string, pageNum: number = 1) => {
     if (!token) return;
@@ -50,10 +54,20 @@ export const Search = () => {
     loadArtists("", page);
   }, [page]);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setPage(1);
-    loadArtists(searchTerm, 1);
+  const handleSearch = async (searchQuery = query, newOffset = 0) => {
+    if (!token || !searchQuery.trim()) return;
+
+    try {
+      setLoading(true);
+      const data = await searchArtists(searchQuery, token, limit, offset);
+      setArtists(data.artists.items);
+      setTotal(data.artists.total);
+      setOffset(newOffset);
+    } catch (err) {
+      console.error("Error buscando artistas:", err);
+    } finally {
+      setLoading(false);
+    }
   };
   
   return (
@@ -62,7 +76,15 @@ export const Search = () => {
         title="Busca tus" 
         titleStrong="artistas" 
         description="Encuentra tus artistas favoritos gracias a nuestro buscador y guarda tus álbumes favoritos" />
-        <FormSearch />
+        <div  className="form-search">
+          <div className="form-search__content">
+              <input type="search"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Buscar..." />
+              <button className="button-color" onClick={() => handleSearch(query, 0)}>Search</button>
+          </div>
+      </div>
         {
           loading ? (
             <p>Cargando...</p>
@@ -72,8 +94,8 @@ export const Search = () => {
               <div className="artists-grid">
                 {
                   artists.length > 0 ? (
-                  artists.map(({ name, followers, id }: Artist) => {
-                    return <ArtistCard key={ id } name={ name } followers={ followers.total } uid={ id } />
+                  artists.map(({ name, followers, id, images }: Artist) => {
+                    return <ArtistCard key={ id } name={ name } followers={ followers.total } uid={ id } image={ images[0].url } />
                   })
                  ) : (
                   <p>No hay resultados</p>

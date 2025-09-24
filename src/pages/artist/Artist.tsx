@@ -54,7 +54,7 @@ export const Artist = () => {
       try {
         const data = await getMyAlbums(token, offset, limit);
         console.log("My albums:", data.items);
-        myArtistAlbums = data.items.filter((item:any) =>
+        myArtistAlbums = data.items.find((item:any) =>
           item.album.artists[0].id === id
         );
         console.log("My albums:", myArtistAlbums);

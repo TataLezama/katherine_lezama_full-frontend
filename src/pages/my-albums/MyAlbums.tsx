@@ -20,7 +20,8 @@ export const MyAlbums = () => {
 
       try {
         const data = await getMyAlbums(token, 0, 10);
-        setAlbums(data.items);
+        console.log("My albums:", data.items);
+        // setAlbums(data.items);
       } catch (err) {
         console.error("Error obteniendo mis álbumes:", err);
       }
@@ -38,13 +39,13 @@ export const MyAlbums = () => {
         <div className="albums-grid">
           <p>Mis álbumes</p>
           {
-            albums && albums.length > 0 ? (
-              albums.map(({ name, images, id, release_date }: any) => {
-                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ true } />
-              })
-            ) : (
-              <p>No hay álbumes</p>
-            )
+            // albums && albums.length > 0 ? (
+            //   albums.map(({ name, images, id, release_date }: any) => {
+            //     return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ true } />
+            //   })
+            // ) : (
+            //   <p>No hay álbumes</p>
+            // )
           }
         </div>
     </div>

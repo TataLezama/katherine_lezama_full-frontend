@@ -31,6 +31,8 @@ export const Artist = () => {
   const [total, setTotal] = useState(0);
   const limit = 10;
 
+  let myArtistAlbums: any[] = [];
+
   useEffect(() => {
     const fetchData = async () => {
       if (!id || !token) return;
@@ -51,7 +53,10 @@ export const Artist = () => {
 
       try {
         const data = await getMyAlbums(token, offset, limit);
-        console.log("My albums:", data.items);
+        myArtistAlbums = data.items.filter((item:any) =>
+          item.album.artists.some((a: any) => a.id === id)
+        );
+        console.log("My albums:", myArtistAlbums);
       } catch (err) {
         console.error("Error obteniendo mis álbumes:", err);
       }
@@ -86,7 +91,15 @@ export const Artist = () => {
           {
             albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
-                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ false } />
+                let inMyAlbums = false;
+                if (myArtistAlbums) {
+                  myArtistAlbums.forEach((item: any) => {
+                    if (item.album.id === id) {
+                      inMyAlbums = true;
+                    }
+                  });
+                }
+                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ inMyAlbums } />
               })
             ) : (
               <p>No hay álbumes</p>

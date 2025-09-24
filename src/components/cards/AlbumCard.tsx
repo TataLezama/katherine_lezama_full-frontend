@@ -6,7 +6,30 @@ interface AlbumCardProps {
   inMyAlbums: boolean,
 }
 
-export const AlbumCard = ( { name, imageUrl, id, publishedDate }: AlbumCardProps ) => {
+export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: AlbumCardProps ) => {
+
+  const token = localStorage.getItem("spotifyToken") || "";
+
+  const handleRemoveAlbum = async () => {
+    if (!token) return;
+    try {
+      // const data = await removeAlbum(id, token);
+      console.log("Album removido:", id);
+    } catch (err) {
+      console.error("Error al remover el álbum:", err);
+    }
+  };
+
+  const handleAddAlbum = () => {
+    if (!token) return;
+    try {
+      // const data = addAlbum(id, token);
+      console.log("Album añadido:", id);
+    } catch (err) {
+      console.error("Error al añadir el álbum:", err);
+    }
+  };
+
   return (
     <div className="album-card">
       <a href={`/album/${ id }`}>
@@ -16,7 +39,13 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate }: AlbumCardProps
         <div className="album-card__content">
           <h1 className="album-card__name">{ name }</h1>
           <p>Publicado: { publishedDate }</p>
-          <button type="button" className="button-color">+ Add album</button>
+          {
+            inMyAlbums ? (
+              <button type="button" onClick={handleRemoveAlbum} className="button-color button-color--red">- Remove album</button>
+            ) : (
+              <button type="button" onClick={handleAddAlbum} className="button-color">+ Add album</button>
+            )
+          }
         </div>
       </a>
     </div>

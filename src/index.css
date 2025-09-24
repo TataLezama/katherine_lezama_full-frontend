@@ -3,6 +3,7 @@
   --secondary-color: #000000;
   --primary-text-color: #ffffff;
   --secondary-text-color: #D6F379;
+  --red-color: #E3513D;
 
   --primary-font-family: "Montserrat", sans-serif;
 }
@@ -57,6 +58,9 @@ button {
   padding: 0.85rem 2rem;
   border-radius: 20px;
   border: none;
+}
+.button-color--red {
+  background-color: var(--red-color);
 }
 .button-container {
   display: flex;

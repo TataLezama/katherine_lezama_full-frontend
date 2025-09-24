@@ -101,7 +101,6 @@ export const Artist = () => {
                   myArtistAlbums.forEach((item: MyAlbums) => {
                     if ( item.album.id === id ) {
                       inMyAlbums = true;
-                      return;
                     }
                   });
                 }

@@ -39,7 +39,6 @@ export const MyAlbums = () => {
             titleStrong="guardados" 
             description="Disfruta de tu música a un solo click y descube que discos has guardado dentro de  “mis  álbumes”" />
         <div className="albums-grid">
-          <p>Mis álbumes</p>
           {
             albums && albums.length > 0 ? (
               albums.map(({ album: { name, images, id, release_date } }: Album) => {

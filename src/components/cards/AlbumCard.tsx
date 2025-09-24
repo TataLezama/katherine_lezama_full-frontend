@@ -32,22 +32,20 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
 
   return (
     <div className="album-card">
-      <a href={`/album/${ id }`}>
-        <div className="album-card__image">
-          <img src={ imageUrl } alt="album-image" />
-        </div>
-        <div className="album-card__content">
-          <h1 className="album-card__name">{ name }</h1>
-          <p>Publicado: { publishedDate }</p>
-          {
-            inMyAlbums ? (
-              <button onClick={handleRemoveAlbum} className="button-color button-color--red">- Remove album</button>
-            ) : (
-              <button onClick={handleAddAlbum} className="button-color">+ Add album</button>
-            )
-          }
-        </div>
-      </a>
+      <div className="album-card__image">
+        <img src={ imageUrl } alt="album-image" />
+      </div>
+      <div className="album-card__content">
+        <h1 className="album-card__name">{ name }</h1>
+        <p>Publicado: { publishedDate }</p>
+        {
+          inMyAlbums ? (
+            <button onClick={handleRemoveAlbum} className="button-color button-color--red">- Remove album</button>
+          ) : (
+            <button onClick={handleAddAlbum} className="button-color">+ Add album</button>
+          )
+        }
+      </div>
     </div>
   )
 }

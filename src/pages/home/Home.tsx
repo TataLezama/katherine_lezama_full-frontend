@@ -10,6 +10,7 @@ export const Home = () => {
     const _token = getTokenFromUrl();
     
     if (_token) {
+      console.log("Token encontrado en localStorage: ", _token);
       setToken(_token);
       localStorage.setItem("spotifyToken", _token);
     } else {

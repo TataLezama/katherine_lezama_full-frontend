@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 import { addAlbum, removeAlbum } from "../../spotify/api";
 
 interface AlbumCardProps {
@@ -13,6 +13,8 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
 
   const token = localStorage.getItem("spotifyToken") || "";
   const [isInMyAlbums, setIsInMyAlbums] = useState(inMyAlbums);
+
+  console.log("isInMyAlbums in album card:", isInMyAlbums);
 
   const handleRemoveAlbum = async () => {
     if (!token) return;

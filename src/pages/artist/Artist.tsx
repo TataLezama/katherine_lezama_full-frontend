@@ -95,6 +95,7 @@ export const Artist = () => {
                   }
                 });
               }
+              console.log("inMyAlbums:", inMyAlbums);
 
               return (
                 <AlbumCard

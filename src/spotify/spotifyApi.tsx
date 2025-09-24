@@ -22,7 +22,7 @@ export const fetchSpotify = async (
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
 
-  if (response.status === 200 || response.status === 204) return true;
+  if ((method === 'PUT' || method == 'DELETE') && (response.status === 200 || response.status === 204)) return true;
 
   return response.json();
 };

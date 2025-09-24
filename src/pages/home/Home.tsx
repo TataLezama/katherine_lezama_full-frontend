@@ -8,9 +8,10 @@ export const Home = () => {
 
   useEffect(() => {
     const _token = getTokenFromUrl();
-    
+    console.log("Token encontrado en localStorage: ", _token);
+
     if (_token) {
-      console.log("Token encontrado en localStorage: ", _token);
+      
       setToken(_token);
       localStorage.setItem("spotifyToken", _token);
     } else {

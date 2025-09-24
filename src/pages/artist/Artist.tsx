@@ -88,6 +88,7 @@ export const Artist = () => {
             albums.map(({ name, images, id, release_date }) => {
               let inMyAlbums = false;
               if (myArtistAlbums.length > 0) {
+                console.log("My albums:", myArtistAlbums);
                 myArtistAlbums.forEach((item: MyAlbums) => {
                   if (item.album.id === id) {
                     inMyAlbums = true;

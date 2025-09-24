@@ -19,7 +19,9 @@ interface Artist {
 }
 
 interface MyAlbums {
-  album: object;
+  album: {
+    id: string;
+  }
 }
 
 export const Artist = () => {
@@ -35,7 +37,7 @@ export const Artist = () => {
   const [total, setTotal] = useState(0);
   const limit = 10;
 
-  let myArtistAlbums: MyAlbums | null = null;
+  let myArtistAlbums: MyAlbums[] = [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,9 +97,14 @@ export const Artist = () => {
             albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
                 let inMyAlbums = false;
-                // if (myArtistAlbums && myArtistAlbums.album) {
-                //   myArtistAlbums.album.
-                // }
+                if ( myArtistAlbums && myArtistAlbums.length > 0 ) {
+                  myArtistAlbums.forEach((item: MyAlbums) => {
+                    if ( item.album.id === id ) {
+                      inMyAlbums = true;
+                      return;
+                    }
+                  });
+                }
                 return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ inMyAlbums } />
               })
             ) : (

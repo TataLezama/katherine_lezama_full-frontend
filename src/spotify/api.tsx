@@ -37,9 +37,9 @@ export const getMyAlbums = async (token: string, offset = 0, limit = 10) => {
 };
 
 export const removeAlbum = async (id: string, token: string) => {
-  return await fetchSpotify(`me/albums?ids=${id}`, token, 'DELETE');
+  return await fetchSpotify(`me/albums`, token, 'DELETE', { ids: [id] });
 }
 
 export const addAlbum = async (id: string, token: string) => {
-  return await fetchSpotify(`me/albums?ids=${id}`, token, 'PUT');
+  return await fetchSpotify(`me/albums`, token, 'PUT', { ids: [id] });
 }

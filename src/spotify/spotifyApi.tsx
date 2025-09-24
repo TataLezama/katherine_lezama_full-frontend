@@ -1,15 +1,29 @@
-
-export const fetchSpotify = async (endpoint: string, token: string, method = 'GET') => {
-  const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, {
+export const fetchSpotify = async (
+  endpoint: string,
+  token: string,
+  method: string = "GET",
+  body?: any
+) => {
+  const options: RequestInit = {
     method: method.toUpperCase(),
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
-  });
+  };
+
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const response = await fetch(`https://api.spotify.com/v1/${endpoint}`, options);
 
   if (!response.ok) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
+
+  // algunos métodos (ej. DELETE) devuelven 204 sin body
+  if (response.status === 204) return true;
 
   return response.json();
 };

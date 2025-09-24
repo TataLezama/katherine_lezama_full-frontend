@@ -40,7 +40,7 @@ export const Search = () => {
         setArtists(data.artists.items);
       } else {
         data = await getInitialArtists(token, limit, offset);
-        console.log("Artistas iniciales:", data.artists.items);
+        console.log("Artistas iniciales:", data);
         setTotalPages(Math.ceil(data.artists.total / limit));
         setArtists(data.artists.items);
       }

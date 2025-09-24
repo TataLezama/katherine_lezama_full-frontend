@@ -16,8 +16,6 @@ export const Home = () => {
     } else {
       const savedToken = localStorage.getItem("spotifyToken");
       if (savedToken) setToken(savedToken);
-      window.location.hash = ""; // limpia el hash de la URL
-      window.location.reload();
     }
   }, []);
 

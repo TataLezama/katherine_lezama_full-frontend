@@ -46,6 +46,9 @@ export const getTokenFromUrl = (): string | null => {
             console.log("Refresh token:", data.refresh_token);
             localStorage.setItem("spotifyRefreshToken", data.refresh_token);
           }
+
+          window.location.hash = ""; // limpia el hash de la URL
+          window.location.reload();
         }
       )
       .catch((error) => {

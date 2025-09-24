@@ -14,6 +14,7 @@ const scopes = [
   "user-read-private",
   "user-read-email",
   "user-library-read",
+  "user-library-modify",
 ];
 
 export const loginUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(

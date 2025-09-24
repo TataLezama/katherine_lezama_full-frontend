@@ -87,12 +87,12 @@ export const Artist = () => {
         <div className="albums-grid">
           {albums.length > 0 ? (
             albums.map((album: Album) => {
-              setMyAlbum(false);
+              let myAlbumTemp = true;
               if (myArtistAlbums.length > 0) {
                 myArtistAlbums.forEach((item: MyAlbums) => {
                   console.log(item.album.id, album.id);
                   if (item.album.id === album.id) {
-                    setMyAlbum(true);
+                    setMyAlbum(myAlbumTemp);
                   }
                 });
               }

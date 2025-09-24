@@ -272,7 +272,7 @@ button {
   flex-wrap: wrap;
 }
 .albums-grid .album-card {
-  width: calc(100% / 4);
+  width: calc(100% / 4 - 3rem);
   margin-bottom: 2rem;
 }
 
@@ -371,8 +371,11 @@ button {
 }
 
 @media (max-width: 991px) {
-  .artists-grid .artist-card, .albums-grid .album-card {
+  .artists-grid .artist-card {
     width: calc(100% / 2);
+  }
+  .albums-grid .album-card {
+    width: calc(100% / 2 - 3rem);
   }
   .grid {
     justify-content: space-between;

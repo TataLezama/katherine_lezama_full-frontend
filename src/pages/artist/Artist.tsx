@@ -85,12 +85,12 @@ export const Artist = () => {
         </p>
         <div className="albums-grid">
           {albums.length > 0 ? (
-            albums.map(({ name, images, id, release_date }) => {
+            albums.map((album: Album) => {
               let inMyAlbums = false;
               if (myArtistAlbums.length > 0) {
-                console.log("My albums:", myArtistAlbums);
                 myArtistAlbums.forEach((item: MyAlbums) => {
-                  if (item.album.id === id) {
+                  console.log(item.album.id, album.id);
+                  if (item.album.id === album.id) {
                     inMyAlbums = true;
                   }
                 });
@@ -98,11 +98,11 @@ export const Artist = () => {
 
               return (
                 <AlbumCard
-                  key={id}
-                  id={id}
-                  name={name}
-                  imageUrl={images[0]?.url}
-                  publishedDate={release_date}
+                  key={album.id}
+                  id={album.id}
+                  name={album.name}
+                  imageUrl={album.images[0]?.url}
+                  publishedDate={album.release_date}
                   inMyAlbums={inMyAlbums}
                 />
               );

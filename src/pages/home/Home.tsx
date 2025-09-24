@@ -8,7 +8,7 @@ export const Home = () => {
 
   useEffect(() => {
     const _token = getTokenFromUrl();
-    window.location.hash = "";
+    
     if (_token) {
       setToken(_token);
       localStorage.setItem("spotifyToken", _token);

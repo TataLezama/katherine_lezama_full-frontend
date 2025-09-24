@@ -2,6 +2,7 @@ interface SpotifyToken {
   access_token: string;
   token_type: string;
   scope: string;
+  refresh_token?: string;
 }
 
 const clientId = "3101fd6a7ac84f3795ba053c6cbe44b5"; // Reemplázalo con tu Client ID
@@ -21,22 +22,36 @@ export const getTokenFromUrl = (): string | null => {
   if (token) {
     return token;
   } else {
-    const hash = window.location.search; // obtiene lo que está después de "#"
+    console.log("No hay token en localStorage");
+
+    const hash = window.location.search;
     const params = new URLSearchParams(hash);
     
     if (!params.get("code")) {
-      console.error("No hay código de autorización");
+      console.log("Debes autenticarte para usar esta app");
     } else {
+      console.log("Autenticando...");
       fetchGetToken(params.get("code")!)
       .then(
         (data: SpotifyToken) => {
-          token = data.access_token;
+          if ( !data.refresh_token ) {
+            console.log("Token obtenido:", data.access_token);
+            token = data.access_token;
+          } else {
+            fetchRefreshToken(data.refresh_token)
+            .then(
+              (refreshData: SpotifyToken) => {
+                console.log("Refresh Token obtenido:", refreshData.access_token);
+                token = refreshData.access_token;
+              }
+            )
+            .catch(console.error);
+          }
         }
       )
       .catch(console.error);
     }
-
-    return token;
+      return token;
   }
 };
 
@@ -52,6 +67,26 @@ export const fetchGetToken = async (code: string) => {
       grant_type: "authorization_code",
       client_id: clientId,
       client_secret: clientSecret,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export const fetchRefreshToken = async (refreshToken: string) => {
+  const response = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+      client_id: clientId,
     }),
   });
 

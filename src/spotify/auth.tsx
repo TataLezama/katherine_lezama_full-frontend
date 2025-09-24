@@ -1,3 +1,5 @@
+import { error } from "console";
+
 interface SpotifyToken {
   access_token: string;
   token_type: string;
@@ -36,6 +38,7 @@ export const getTokenFromUrl = (): string | null => {
         (data: SpotifyToken) => {
           console.log("Token obtenido:", data.access_token);
           token = data.access_token;
+          localStorage.setItem("spotifyToken", data.access_token);
 
           if ( data.refresh_token ) {
             console.log("Refresh token:", data.refresh_token);
@@ -43,9 +46,12 @@ export const getTokenFromUrl = (): string | null => {
           }
         }
       )
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Error al obtener token:", error);
+        return null;
+      });
     }
-      return token;
+    return token;
   }
 };
 

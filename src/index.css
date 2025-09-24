@@ -357,6 +357,10 @@ button {
   margin: 1rem 0
 }
 
+.my-albums .albums-grid {
+  padding: 2rem 4rem;
+}
+
 @media (max-width: 1199px) {
   .grid__content .title {
     font-size: 3rem;

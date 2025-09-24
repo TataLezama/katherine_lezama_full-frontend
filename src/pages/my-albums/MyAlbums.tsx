@@ -1,13 +1,15 @@
 import { use, useEffect, useState } from "react";
 import { BannerText } from "../../components/BannerText"
 import { getMyAlbums } from "../../spotify/api";
-import { AlbumCard } from "../../components/cards/AlbumCard";
+import { AlbumCard } from '../../components/cards/AlbumCard';
 
 interface Album {
-  id: string;
-  name: string;
-  images: { url: string }[];
-  release_date: string;
+  album: {
+    id: string;
+    name: string;
+    images: { url: string }[];
+    release_date: string;
+  }
 }
 
 export const MyAlbums = () => {
@@ -21,7 +23,7 @@ export const MyAlbums = () => {
       try {
         const data = await getMyAlbums(token, 0, 10);
         console.log("My albums:", data.items);
-        // setAlbums(data.items);
+        setAlbums(data.items);
       } catch (err) {
         console.error("Error obteniendo mis álbumes:", err);
       }
@@ -31,7 +33,7 @@ export const MyAlbums = () => {
   }, []);
 
   return (
-    <div>
+    <div className="my-albums">
         <BannerText 
             title="Mis albumes" 
             titleStrong="guardados" 
@@ -39,13 +41,13 @@ export const MyAlbums = () => {
         <div className="albums-grid">
           <p>Mis álbumes</p>
           {
-            // albums && albums.length > 0 ? (
-            //   albums.map(({ name, images, id, release_date }: any) => {
-            //     return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ true } />
-            //   })
-            // ) : (
-            //   <p>No hay álbumes</p>
-            // )
+            albums && albums.length > 0 ? (
+              albums.map(({ album: { name, images, id, release_date } }: Album) => {
+                return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ true } />
+              })
+            ) : (
+              <p>No hay álbumes</p>
+            )
           }
         </div>
     </div>

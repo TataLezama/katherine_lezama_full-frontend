@@ -54,7 +54,7 @@ export const Artist = () => {
       try {
         const data = await getMyAlbums(token, offset, limit);
         myArtistAlbums = data.items.filter((item:any) =>
-          item.album.artists.some((a: any) => a.id === id)
+          item.album.artists[0].id === id
         );
         console.log("My albums:", myArtistAlbums);
       } catch (err) {
@@ -92,7 +92,7 @@ export const Artist = () => {
             albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
                 let inMyAlbums = false;
-                if (myArtistAlbums) {
+                if (myArtistAlbums && myArtistAlbums.length > 0) {
                   myArtistAlbums.forEach((item: any) => {
                     if (item.album.id === id) {
                       inMyAlbums = true;

@@ -11,11 +11,11 @@ interface Album {
 }
 
 export const MyAlbums = () => {
+  const token = localStorage.getItem("spotifyToken") || "";
   const [albums, setAlbums] = useState<Album[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("spotifyToken") || "";
       if (!token) return;
 
       try {
@@ -38,7 +38,7 @@ export const MyAlbums = () => {
         <div className="albums-grid">
           <p>Mis álbumes</p>
           {
-            albums.length > 0 ? (
+            albums && albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
                 return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ true } />
               })

@@ -41,9 +41,9 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
           <p>Publicado: { publishedDate }</p>
           {
             inMyAlbums ? (
-              <button type="button" onClick={handleRemoveAlbum} className="button-color button-color--red">- Remove album</button>
+              <button onClick={handleRemoveAlbum} className="button-color button-color--red">- Remove album</button>
             ) : (
-              <button type="button" onClick={handleAddAlbum} className="button-color">+ Add album</button>
+              <button onClick={handleAddAlbum} className="button-color">+ Add album</button>
             )
           }
         </div>

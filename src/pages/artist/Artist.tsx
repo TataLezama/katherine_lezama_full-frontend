@@ -18,6 +18,10 @@ interface Artist {
   followers: { total: number };
 }
 
+interface MyAlbums {
+  album: object;
+}
+
 export const Artist = () => {
   
   const { id } = useParams<{ id: string }>();
@@ -31,7 +35,7 @@ export const Artist = () => {
   const [total, setTotal] = useState(0);
   const limit = 10;
 
-  let myArtistAlbums: any[] = [];
+  let myArtistAlbums: MyAlbums | null = null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,9 +58,7 @@ export const Artist = () => {
       try {
         const data = await getMyAlbums(token, offset, limit);
         console.log("My albums:", data.items);
-        myArtistAlbums = data.items.find((item:any) =>
-          item.album.artists[0].id === id
-        );
+        myArtistAlbums = data.items.filter((item:any) => item.album.artists[0].id === id);
         console.log("My albums:", myArtistAlbums);
       } catch (err) {
         console.error("Error obteniendo mis álbumes:", err);
@@ -93,13 +95,9 @@ export const Artist = () => {
             albums.length > 0 ? (
               albums.map(({ name, images, id, release_date }: any) => {
                 let inMyAlbums = false;
-                if (myArtistAlbums && myArtistAlbums.length > 0) {
-                  myArtistAlbums.forEach((item: any) => {
-                    if (item.album.id === id) {
-                      inMyAlbums = true;
-                    }
-                  });
-                }
+                // if (myArtistAlbums && myArtistAlbums.album) {
+                //   myArtistAlbums.album.
+                // }
                 return <AlbumCard key={ id } name={ name } imageUrl={ images[0].url } id={ id } publishedDate={ release_date } inMyAlbums={ inMyAlbums } />
               })
             ) : (

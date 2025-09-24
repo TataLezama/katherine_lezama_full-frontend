@@ -1,3 +1,6 @@
+import { use, useState } from "react";
+import { addAlbum, removeAlbum } from "../../spotify/api";
+
 interface AlbumCardProps {
   id: string
   name: string,
@@ -13,7 +16,7 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
   const handleRemoveAlbum = async () => {
     if (!token) return;
     try {
-      // const data = await removeAlbum(id, token);
+      const data = await removeAlbum(id, token);
       console.log("Album removido:", id);
     } catch (err) {
       console.error("Error al remover el álbum:", err);
@@ -23,7 +26,7 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
   const handleAddAlbum = () => {
     if (!token) return;
     try {
-      // const data = addAlbum(id, token);
+      const data = addAlbum(id, token);
       console.log("Album añadido:", id);
     } catch (err) {
       console.error("Error al añadir el álbum:", err);

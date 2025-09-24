@@ -24,15 +24,17 @@ export const getTokenFromUrl = (): string | null => {
     const hash = window.location.search; // obtiene lo que está después de "#"
     const params = new URLSearchParams(hash);
     
-    if (!params.get("code")) throw new Error("No se encontró el código de autorización");
-
-    fetchGetToken(params.get("code")!)
-    .then(
-      (data: SpotifyToken) => {
-        token = data.access_token;
-      }
-    )
-    .catch(console.error);
+    if (!params.get("code")) {
+      console.error("No hay código de autorización");
+    } else {
+      fetchGetToken(params.get("code")!)
+      .then(
+        (data: SpotifyToken) => {
+          token = data.access_token;
+        }
+      )
+      .catch(console.error);
+    }
 
     return token;
   }

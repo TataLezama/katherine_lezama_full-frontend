@@ -18,7 +18,6 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
     if (!token) return;
     try {
       const data = await removeAlbum(id, token);
-      console.log("Album removido:", id);
       setIsInMyAlbums(false);
     } catch (err) {
       console.error("Error al remover el álbum:", err);
@@ -29,7 +28,6 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
     if (!token) return;
     try {
       const data = addAlbum(id, token);
-      console.log("Album añadido:", id);
       setIsInMyAlbums(true);
     } catch (err) {
       console.error("Error al añadir el álbum:", err);

@@ -22,8 +22,7 @@ export const fetchSpotify = async (
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
 
-  // algunos métodos (ej. DELETE) devuelven 204 sin body
-  if (response.status === 204) return true;
+  if (response.status === 200 || response.status === 204) return true;
 
   return response.json();
 };

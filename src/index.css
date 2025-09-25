@@ -256,6 +256,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding: 0 1rem;
 }
 .artist__header p {
@@ -445,6 +446,9 @@ button {
     max-width: 320px;
     margin-bottom: 4rem;
   }
+  .artist__name {
+    font-size: 2.5rem;
+  }
 }
 
 @media (max-width: 767px) {
@@ -472,6 +476,10 @@ button {
   }
   .artist {
     padding: 4rem 1rem;
+  }
+  .artist__content {
+    width: 100%;
+    margin-top: 2rem;
   }
   .my-albums .albums-grid {
     padding: 4rem 1rem;

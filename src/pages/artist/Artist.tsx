@@ -8,7 +8,7 @@ interface Album {
   name: string;
   images: { url: string }[];
   release_date: string;
-  inMyAlbums: boolean = false;
+  inMyAlbums: boolean;
 }
 
 interface Artist {

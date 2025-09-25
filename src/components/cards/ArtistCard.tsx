@@ -15,7 +15,7 @@ export const ArtistCard = ({ name, followers, uid, image }: ArtistCardProps) => 
         </div>
         <div className="artist-card__content">
           <h1 className="artist-card__name">{ name }</h1>
-          <p className="artist-card__followers">Followers: { followers }</p>
+          <p className="artist-card__followers">Followers: { followers.toLocaleString('en-US') }</p>
         </div>
       </a>
     </div>

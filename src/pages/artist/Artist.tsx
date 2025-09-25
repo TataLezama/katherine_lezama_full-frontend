@@ -92,8 +92,8 @@ export const Artist = () => {
             Artista certificado
           </p>
           <h1 className="artist__name">{artist.name}</h1>
-          <p className="artist__followers">Followers: {artist.followers.total}</p>
-          <p>Oyentes mensuales: {artist.followers.total}</p>
+          <p className="artist__followers">Followers: { artist.followers.total.toLocaleString('en-US') }</p>
+          <p>Oyentes mensuales: { artist.followers.total.toLocaleString('en-US') }</p>
         </div>
       </div>
 

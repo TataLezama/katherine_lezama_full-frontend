@@ -14,8 +14,6 @@ export const AlbumCard = ( { name, imageUrl, id, publishedDate, inMyAlbums }: Al
   const token = localStorage.getItem("spotifyToken") || "";
   const [isInMyAlbums, setIsInMyAlbums] = useState(inMyAlbums);
 
-  console.log("isInMyAlbums in album card:", isInMyAlbums);
-
   const handleRemoveAlbum = async () => {
     if (!token) return;
     try {

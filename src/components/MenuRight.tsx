@@ -36,7 +36,8 @@ export const MenuRight = () => {
         )}
         <div className="button-logout">
           <button type="button" onClick={handleLogout}>
-            Cerrar sesión
+            <span className="button-logout__text">Cerrar sesión</span>
+            <img src="/icon-logout.svg" alt="icon-logout" />
           </button>
         </div>
       </>

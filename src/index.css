@@ -156,6 +156,12 @@ button {
 .menu-right .button-logout {
   border-left: 1px solid var(--primary-text-color);
   padding-left: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-right .button-logout img {
+  display: none;
 }
 
 .form-search {
@@ -176,13 +182,26 @@ button {
 .form-search__content input {
   width: 100%;
   height: 62px;
-  padding: 1.3rem 2rem;
+  padding: 0 2rem;
   border-radius: 24px;
   border: none;
   color: var(--primary-color);
   font-size: 1rem;
   font-weight: 600;
   font-family: var(--primary-font-family);
+}
+.form-search__content .clear-button {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 0;
 }
 .form-search__content button {
   position: absolute;
@@ -231,12 +250,13 @@ button {
 }
 
 .artist {
-  padding: 4rem;
+  padding: 4rem 3rem;
 }
 .artist__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 1rem;
 }
 .artist__header p {
   font-weight: 600;
@@ -266,7 +286,12 @@ button {
 .artist__certified img {
   margin-right: 1rem;
 }
-
+.artist__albums {
+  padding: 6rem 0 4rem 0 ;
+}
+.artist__albums  > p {
+  padding: 0 1rem;
+}
 .albums-grid {
   display: flex;
   flex-wrap: wrap;
@@ -314,7 +339,13 @@ button {
 }
 
 .search-container {
-  padding: 4rem 2rem;
+  padding: 2rem;
+}
+.search-results {
+  padding: 3.5rem 0;
+}
+.search-results > p {
+  padding: 0 1rem;
 }
 .artists-grid {
   display: flex;
@@ -356,6 +387,30 @@ button {
   font-weight: 600;
   margin: 1rem 0
 }
+.pagination {
+  display: flex;
+  align-items: center;
+}
+.pagination button {
+  border: none;
+  background-color: transparent;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease-in-out;
+  border-radius: 8px
+}
+.pagination button:hover {
+  background-color: var(--secondary-color);
+}
+.pagination .button--prev {
+  margin-right: 1rem;
+}
+.pagination .button--next {
+  margin-left: 1rem;
+}
 
 .my-albums .albums-grid {
   padding: 4rem;
@@ -368,15 +423,15 @@ button {
   .grid__image img {
     max-width: 300px;
   }
-}
-
-@media (max-width: 991px) {
   .artists-grid .artist-card {
     width: calc(100% / 2);
   }
   .albums-grid .album-card {
     width: calc(100% / 2 - 3rem);
   }
+}
+
+@media (max-width: 991px) {
   .grid {
     justify-content: space-between;
   }
@@ -393,6 +448,15 @@ button {
 }
 
 @media (max-width: 767px) {
+  .menu-right .button-logout {
+    padding: 0;
+  }
+  .menu-right .button-logout img {
+    display: block;
+  }
+  .menu-right .button-logout__text {
+    display: none;
+  }
   .grid > div {
     width: 100%;
   }
@@ -406,9 +470,38 @@ button {
   .grid__content button {
     margin-top: 2rem;
   }
+  .artist {
+    padding: 4rem 1rem;
+  }
+  .my-albums .albums-grid {
+    padding: 4rem 1rem;
+  }
 }
 
 @media (max-width: 575px) {
+  .logo {
+    width: 100px;
+  }
+  .menu-right a {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .menu-right button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .banner-text {
+    text-align: left;
+    padding: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+  .banner-text .title {
+    font-size: 2.5rem;
+  }
+  .search-container {
+    padding: 1rem;
+  }
   .artists-grid .artist-card, .albums-grid .album-card {
     width: 100%;
   }

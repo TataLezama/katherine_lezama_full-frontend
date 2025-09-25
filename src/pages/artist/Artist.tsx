@@ -45,7 +45,9 @@ export const Artist = () => {
         setArtist(artistData);
 
         const albumData = await getArtistAlbums(id, token);
-        setAlbums(albumData.items);
+        setAlbums( albumData.items.map(({ name, images, id, release_date }: Album) => {
+          return { name, images, id, release_date, inMyAlbums: false }
+        }));
 
         const myAlbumsData = await getMyAlbums(token, 0, limit);
         const filtered = myAlbumsData.items.filter(
@@ -61,6 +63,7 @@ export const Artist = () => {
               }
             })
           })
+          setAlbums(albums);
         }
 
       } catch (err: any) {

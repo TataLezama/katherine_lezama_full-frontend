@@ -8,6 +8,7 @@ interface Album {
   name: string;
   images: { url: string }[];
   release_date: string;
+  inMyAlbums: boolean = false;
 }
 
 interface Artist {
@@ -50,7 +51,18 @@ export const Artist = () => {
         const filtered = myAlbumsData.items.filter(
           (item: MyAlbums) => item.album.artists[0].id === id
         );
-        setMyArtistAlbums(filtered);
+        setMyArtistAlbums(filtered)
+        
+        if ( myArtistAlbums.length > 0 ) {
+          albums.forEach((album: Album) => {
+            myArtistAlbums.forEach((myAlbum: MyAlbums) => {
+              if ( myAlbum.album.id === album.id ) {
+                album.inMyAlbums = true;
+              }
+            })
+          })
+        }
+
       } catch (err: any) {
         setError(err.message);
       }
@@ -85,12 +97,7 @@ export const Artist = () => {
         </p>
         <div className="albums-grid">
           {albums.length > 0 ? (
-            albums.map(({ name, images, id, release_date }: Album) => {
-              const inMyAlbums = myArtistAlbums.some(
-                (item) => item.album.id === id
-              );
-
-              console.log("inMyAlbums:", inMyAlbums);
+            albums.map(({ name, images, id, release_date, inMyAlbums }: Album) => {
 
               return (
                 <AlbumCard

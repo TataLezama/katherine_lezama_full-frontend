@@ -481,6 +481,9 @@ button {
     width: 100%;
     margin-top: 2rem;
   }
+  .artist__albums {
+    padding: 4rem 0;
+  }
   .my-albums .albums-grid {
     padding: 4rem 1rem;
   }

@@ -55,15 +55,14 @@ export const Artist = () => {
         );
         setMyArtistAlbums(filtered)
         
-        if ( myArtistAlbums.length > 0 ) {
-          albums.forEach((album: Album) => {
-            myArtistAlbums.forEach((myAlbum: MyAlbums) => {
-              if ( myAlbum.album.id === album.id ) {
-                album.inMyAlbums = true;
-              }
-            })
-          })
-          setAlbums(albums);
+        if (myArtistAlbums.length > 0) {
+          const updatedAlbums = albums.map((album) => {
+            const found = myArtistAlbums.some(
+              (myAlbum: MyAlbums) => myAlbum.album.id === album.id
+            );
+            return { ...album, inMyAlbums: found };
+          });
+          setAlbums(updatedAlbums); // 👈 react actualiza el estado y re-renderiza
         }
 
       } catch (err: any) {
@@ -109,7 +108,7 @@ export const Artist = () => {
                   name={name}
                   imageUrl={images[0]?.url}
                   publishedDate={release_date}
-                  inMyAlbums={inMyAlbums}
+                  inMyAlbums={!!inMyAlbums}
                 />
               );
             })

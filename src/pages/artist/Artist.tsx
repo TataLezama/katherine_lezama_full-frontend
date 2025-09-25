@@ -56,13 +56,15 @@ export const Artist = () => {
         setMyArtistAlbums(filtered)
         
         if (myArtistAlbums.length > 0) {
+          console.log("My albums:", myArtistAlbums);
           const updatedAlbums = albums.map((album) => {
             const found = myArtistAlbums.some(
               (myAlbum: MyAlbums) => myAlbum.album.id === album.id
             );
             return { ...album, inMyAlbums: found };
           });
-          setAlbums(updatedAlbums); // 👈 react actualiza el estado y re-renderiza
+          console.log("Updated albums:", updatedAlbums);
+          setAlbums(updatedAlbums);
         }
 
       } catch (err: any) {

@@ -45,9 +45,15 @@ export const Artist = () => {
         setArtist(artistData);
 
         const albumData = await getArtistAlbums(id, token);
-        setAlbums( albumData.items.map(({ name, images, id, release_date }: Album) => {
-          return { name, images, id, release_date, inMyAlbums: false }
-        }));
+        const baseAlbums: Album[] = albumData.items.map(
+          ({ name, images, id, release_date }: Album) => ({
+            name,
+            images,
+            id,
+            release_date,
+            inMyAlbums: false,
+          })
+        );
 
         const myAlbumsData = await getMyAlbums(token, 0, limit);
         const filtered = myAlbumsData.items.filter(
@@ -55,17 +61,13 @@ export const Artist = () => {
         );
         setMyArtistAlbums(filtered)
         
-        if (myArtistAlbums.length > 0) {
-          console.log("My albums:", myArtistAlbums);
-          const updatedAlbums = albums.map((album) => {
-            const found = myArtistAlbums.some(
-              (myAlbum: MyAlbums) => myAlbum.album.id === album.id
-            );
-            return { ...album, inMyAlbums: found };
-          });
-          console.log("Updated albums:", updatedAlbums);
-          setAlbums(updatedAlbums);
-        }
+        const updatedAlbums = baseAlbums.map((album) => {
+        const found = filtered.some(
+          (myAlbum: MyAlbums) => myAlbum.album.id === album.id
+          );
+          return { ...album, inMyAlbums: found };
+        });
+        setAlbums(updatedAlbums);
 
       } catch (err: any) {
         setError(err.message);
